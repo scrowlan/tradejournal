@@ -257,6 +257,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
+  capybara
   cucumber-rails
   database_cleaner
   jbuilder (~> 2.7)
