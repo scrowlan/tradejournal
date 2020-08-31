@@ -5,6 +5,10 @@
     This is the home page for your Trade Watchlist!
   </h2>
   
-  <%= link_to "Sign up now!", '#', class: "btn btn-large btn-primary" %>
+  <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-large btn-primary" %>
+
+  <%= link_to "New Watchlist Item", new_stock_path, class: "btn btn-large btn-primary" %>
+
+  <%= link_to "See Watchlist", stocks_path, class: "btn btn-large btn-primary" %>
   
 </div>
