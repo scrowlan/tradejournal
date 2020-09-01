@@ -6,8 +6,53 @@
 </p>
  
 <p>
-  <strong>Target:</strong>
-  <%= @stock.target %>
+  <strong>Target Entry:</strong>
+  <%= @stock.target_entry %>
+</p>
+
+<p>
+  <strong>Stop Loss:</strong>
+  <%= @stock.stop_loss %>
+</p>
+
+<p>
+  <strong>Target Exit 1:</strong>
+  <%= @stock.target_exit_1 %>
+</p>
+
+<p>
+  <strong>Target Exit 2:</strong>
+  <%= @stock.target_exit_2 %>
+</p>
+
+<p>
+  <strong>Target Exit 3:</strong>
+  <%= @stock.target_exit_3 %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @stock.date %>
+</p>
+
+<p>
+  <strong>Timeframe:</strong>
+  <%= @stock.timeframe %>
+</p>
+
+<p>
+  <strong>Risk:</strong>
+  <%= @stock.risk %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @stock.source %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @stock.notes %>
 </p>
 
 <%= link_to 'Edit', edit_stock_path(@stock) %>

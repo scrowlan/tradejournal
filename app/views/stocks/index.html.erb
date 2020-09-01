@@ -6,16 +6,36 @@
 <table>
   <tr>
     <th>Symbol</th>
-    <th>Target</th>
-    <th></th>
+    <th>Target Entry</th>
+    <th>Stop Loss</th>
+    <th>Target Exit</th>
+    <th>Target Exit</th>
+    <th>Target Exit</th>
+    <th>Date</th>
+    <th>Timeframe</th>
+    <th>Source</th>
+    <th>Risk</th>
+    <th>Notes</th>
   </tr>
  
   <% @stocks.each do |stock| %>
     <tr>
       <td><%= stock.symbol %></td>
-      <td><%= stock.target %></td>
+      <td><%= stock.target_entry %></td>
+      <td><%= stock.stop_loss %></td>
+      <td><%= stock.target_exit_1 %></td>
+      <td><%= stock.target_exit_2 %></td>
+      <td><%= stock.target_exit_3 %></td>
+      <td><%= stock.date %></td>
+      <td><%= stock.timeframe %></td>
+      <td><%= stock.source %></td>
+      <td><%= stock.risk %></td>
+      <td><%= stock.notes %></td>
       <td><%= link_to 'Show', stock_path(stock) %></td>
       <td><%= link_to 'Edit', edit_stock_path(stock) %></td>
+      <td><%= link_to 'Destroy', stock_path(stock),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>

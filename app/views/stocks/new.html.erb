@@ -16,19 +16,7 @@
     </div>
   <% end %>
 
-  <p>
-    <%= form.label :symbol %><br>
-    <%= form.text_field :symbol %>
-  </p>
- 
-  <p>
-    <%= form.label :target %><br>
-    <%= form.text_field :target %>
-  </p>
- 
-  <p>
-    <%= form.submit %>
-  </p>
+  <%= render 'form' %>
 
   <%= link_to 'Back', stocks_path %>
 <% end %>

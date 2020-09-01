@@ -1,0 +1,78 @@
+<%= form_with model: @stock, local: true do |form| %>
+ 
+  <% if @stock.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@stock.errors.count, "error") %> prohibited
+        this stock from being saved:
+      </h2>
+      <ul>
+        <% @stock.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= form.label :symbol %><br>
+    <%= form.text_field :symbol %>
+  </p>
+
+  <p>
+    <%= form.label :date %><br>
+    <%= form.text_field :date %>
+  </p>
+
+  <p>
+    <%= form.label :timeframe %><br>
+    <%= form.text_field :timeframe %>
+  </p>
+
+ 
+  <p>
+    <%= form.label :target_entry %><br>
+    <%= form.text_field :target_entry %>
+  </p>
+
+  <p>
+    <%= form.label :stop_loss %><br>
+    <%= form.text_field :stop_loss %>
+  </p>
+
+  <p>
+    <%= form.label :target_exit_1 %><br>
+    <%= form.text_field :target_exit_1 %>
+  </p>
+
+  <p>
+    <%= form.label :target_exit_2 %><br>
+    <%= form.text_field :target_exit_2 %>
+  </p>
+
+
+  <p>
+    <%= form.label :target_exit_3 %><br>
+    <%= form.text_field :target_exit_3 %>
+  </p>
+
+  <p>
+    <%= form.label :risk %><br>
+    <%= form.text_field :risk %>
+  </p>
+
+  <p>
+    <%= form.label :source %><br>
+    <%= form.text_field :source %>
+  </p>
+
+  <p>
+    <%= form.label :notes %><br>
+    <%= form.text_area :notes %>
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>
