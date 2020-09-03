@@ -10,8 +10,10 @@ class StocksController < ApplicationController
 
   def create
   	@stock = Stock.new(stock_params)
+    @stock.user_id = current_user.id
 
   	@stock.save
+
   	redirect_to @stock
   end
 
@@ -42,7 +44,7 @@ class StocksController < ApplicationController
 
 private
   def stock_params
-  	params.require(:stock).permit(:symbol, :target_entry, :stop_loss, :target_exit_1, :target_exit_2, :target_exit_3, :date, :timeframe, :source, :risk, :notes)
+  	params.require(:stock).permit(:symbol, :target_entry, :stop_loss, :target_exit_1, :target_exit_2, :target_exit_3, :date, :timeframe, :source, :risk, :notes, :user_id)
   end
 
 end
