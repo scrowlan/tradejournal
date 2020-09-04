@@ -4,11 +4,64 @@
   <h2>
     This is the home page for your Trade Watchlist!
   </h2>
-  
-  <%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-large btn-primary" %>
+  <% if user_signed_in? %>
+  	<div>Welcome <strong><%= current_user.email %></strong>! </div>
+  	<%= link_to "New Watchlist Item", new_stock_path, class: "btn btn-large btn-primary" %>
+  <% else %>
+  	<%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>
 
-  <%= link_to "New Watchlist Item", new_stock_path, class: "btn btn-large btn-primary" %>
-
-  <%= link_to "See Watchlist", stocks_path, class: "btn btn-large btn-primary" %>
-  
+<div>
+  <h1>Watchlist</h1>
+ 
+<table class="table table-bordered table-sm">
+  <tr>
+    <tr>
+      <th scope="col" rowspan="2">Symbol</th>
+      <th scope="col">Low Entry</th>
+      <th scope="col">Stop Loss</th>
+      <th scope="col">Exit 1</th>
+      <th scope="col">Exit 3</th>
+      <th scope="col">Date</th>
+      <th scope="col">Source</th>
+      <th scope="col" rowspan="2">Images</th>
+      <th scope="col" rowspan="2">Notes</th>
+      <th scope="col" colspan="2" rowspan="2">Actions</th>
+    </tr>
+    <tr>
+      <th scope="col">High Entry</th>
+      <th scope="col">Current</th>
+      <th scope="col">Exit 2</th>
+      <th scope="col">TBD</th>
+      <th scope="col">Timeframe</th>
+      <th scope="col">Risk</th>
+    </tr>
+  </tr>
+ 
+  <% @stocks.each do |stock| %>
+    <tr>
+      <tr>
+        <td rowspan="2"><%= link_to stock.symbol.upcase, stock_path(stock) %></td>
+        <td><%= stock.target_entry %></td>
+        <td><%= stock.stop_loss %></td>
+        <td><%= stock.target_exit_1 %></td>
+        <td><%= stock.target_exit_2 %></td>
+        <td><%= stock.date %></td>
+        <td><%= stock.source %></td>
+        <td rowspan="2">TODO</td>
+        <td rowspan="2"><%= stock.notes %></td>
+        <td colspan="2" rowspan="2">TODO</td>
+      </tr>
+      <tr>
+        <td><%= stock.target_entry_high %></td>
+        <td>TODO</td>
+        <td><%= stock.target_exit_3 %></td>
+        <td>TBD</td>
+        <td><%= stock.timeframe %></td>
+        <td><%= stock.risk %></td>
+      </tr>
+    </tr>
+  <% end %>
+</table>
 </div>

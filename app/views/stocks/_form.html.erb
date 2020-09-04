@@ -31,9 +31,14 @@
 
  
   <p>
-    <%= form.label :target_entry %><br>
+    <%= form.label :target_entry, "Target Entry Low" %><br>
     <%= form.text_field :target_entry %>
   </p>
+
+  <p>
+    <%= form.label :target_entry_high, "Target Entry High" %><br>
+    <%= form.text_field :target_entry_high %>
+  </p>  
 
   <p>
     <%= form.label :stop_loss %><br>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_02_141929) do
+ActiveRecord::Schema.define(version: 2020_09_04_104254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 2020_09_02_141929) do
     t.string "notes"
     t.decimal "stop_loss"
     t.bigint "user_id"
+    t.decimal "target_entry_high"
+    t.string "image"
     t.index ["user_id"], name: "index_stocks_on_user_id"
   end
 

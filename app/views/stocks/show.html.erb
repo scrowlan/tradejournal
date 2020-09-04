@@ -56,4 +56,7 @@
 </p>
 
 <%= link_to 'Edit', edit_stock_path(@stock) %>
+<%= link_to 'Destroy', stock_path(@stock),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
 <%= link_to 'Back', stocks_path %>
