@@ -29,6 +29,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Devise for authentication
 gem 'devise'
 
+# Use Stock Quote for Stock info
+gem 'stock_quote', '~> 3.0'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

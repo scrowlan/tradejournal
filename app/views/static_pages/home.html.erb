@@ -22,7 +22,7 @@
       <th scope="col">Low Entry</th>
       <th scope="col">Stop Loss</th>
       <th scope="col">Exit 1</th>
-      <th scope="col">Exit 3</th>
+      <th scope="col">Exit 2</th>
       <th scope="col">Date</th>
       <th scope="col">Source</th>
       <th scope="col" rowspan="2">Images</th>
@@ -32,14 +32,15 @@
     <tr>
       <th scope="col">High Entry</th>
       <th scope="col">Current</th>
-      <th scope="col">Exit 2</th>
-      <th scope="col">TBD</th>
+      <th scope="col">Change</th>
+      <th scope="col">Exit 3</th>
       <th scope="col">Timeframe</th>
       <th scope="col">Risk</th>
     </tr>
   </tr>
  
   <% @stocks.each do |stock| %>
+    <% ticker = StockQuote::Stock.quote(stock.symbol) %>
     <tr>
       <tr>
         <td rowspan="2"><%= link_to stock.symbol.upcase, stock_path(stock) %></td>
@@ -55,9 +56,9 @@
       </tr>
       <tr>
         <td><%= stock.target_entry_high %></td>
-        <td>TODO</td>
+        <td><%= ticker.latest_price %></td>
+        <td><%= ticker.change %></td>
         <td><%= stock.target_exit_3 %></td>
-        <td>TBD</td>
         <td><%= stock.timeframe %></td>
         <td><%= stock.risk %></td>
       </tr>
