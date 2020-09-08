@@ -5,7 +5,6 @@
     This is the home page for TradeSleuths!
   </h2>
   <% if user_signed_in? %>
-  	<div>Welcome <strong><%= current_user.first_name %></strong>! </div>
   	<%= link_to "New Watchlist Item", new_stock_path, class: "btn btn-large btn-primary" %>
   <% else %>
   	<%= link_to "Sign up now!", new_user_registration_path, class: "btn btn-large btn-primary" %>
