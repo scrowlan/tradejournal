@@ -14,7 +14,7 @@ class StocksController < ApplicationController
 
   	@stock.save
 
-  	redirect_to @stock
+  	redirect_to root_path
   end
 
   def update
