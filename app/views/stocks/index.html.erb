@@ -10,9 +10,9 @@
       <th scope="col">Exit 3</th>
       <th scope="col">Date</th>
       <th scope="col">Source</th>
-      <th scope="col" rowspan="2">Images</th>
+      <%# <th scope="col" rowspan="2">Images</th> %>
       <th scope="col" rowspan="2">Notes</th>
-      <th scope="col" colspan="2" rowspan="2">Actions</th>
+      <%# <th scope="col" colspan="2" rowspan="2">Actions</th> %>
     </tr>
     <tr>
       <th scope="col">High Entry</th>
@@ -25,24 +25,25 @@
   </tr>
  
   <% @stocks.each do |stock| %>
+    <% ticker = StockQuote::Stock.quote(stock.symbol) %>
     <tr>
       <tr>
         <td rowspan="2"><%= link_to stock.symbol.upcase, stock_path(stock) %></td>
-        <td><%= stock.target_entry %></td>
-        <td><%= stock.stop_loss %></td>
-        <td><%= stock.target_exit_1 %></td>
-        <td><%= stock.target_exit_2 %></td>
+        <td><%= number_to_currency(stock.target_entry) %></td>
+        <td><%= number_to_currency(stock.stop_loss) %></td>
+        <td><%= number_to_currency(stock.target_exit_1) %></td>
+        <td><%= number_to_currency(stock.target_exit_2) %></td>
         <td><%= stock.date %></td>
         <td><%= stock.source %></td>
-        <td rowspan="2">TODO</td>
+        <%# <td rowspan="2">TODO</td> %>
         <td rowspan="2"><%= stock.notes %></td>
-        <td colspan="2" rowspan="2">TODO</td>
+        <%# <td colspan="2" rowspan="2">TODO</td> %>
       </tr>
       <tr>
-        <td><%= stock.target_entry_high %></td>
-        <td><%= stock.quote %></td>
-        <td><%= stock.target_exit_3 %></td>
-        <td>TBD</td>
+        <td><%= number_to_currency(stock.target_entry_high) %></td>
+        <td><%= number_to_currency(ticker.latest_price) %></td>
+        <td><%= number_to_currency(ticker.change) %></td>
+        <td><%= number_to_currency(stock.target_exit_3) %></td>
         <td><%= stock.timeframe %></td>
         <td><%= stock.risk %></td>
       </tr>

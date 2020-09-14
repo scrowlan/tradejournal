@@ -1,9 +1,8 @@
 <div class="center hero-unit">
   <h1>TradeSleuths</h1>
   
-  <h2>
-    This is the home page for TradeSleuths!
-  </h2>
+  <h2>Welcome to TradeSleuths!</h2>
+
   <% if user_signed_in? %>
   	<%= link_to "New Watchlist Item", new_stock_path, class: "btn btn-large btn-primary" %>
   <% else %>
@@ -12,7 +11,7 @@
 </div>
 
 <div>
-  <h1>Watchlist</h1>
+  <h2>Symbols we're watching:</h2>
  
 <table class="table table-bordered table-sm">
   <tr>
@@ -26,7 +25,7 @@
       <th scope="col">Source</th>
       <%# <th scope="col" rowspan="2">Images</th> %>
       <th scope="col" rowspan="2">Notes</th>
-      <%# <th scope="col" colspan="2" rowspan="2">Actions</th> %>
+      <th scope="col" colspan="2" rowspan="2">Actions</th>
     </tr>
     <tr>
       <th scope="col">High Entry</th>
@@ -51,7 +50,21 @@
         <td><%= stock.source %></td>
         <%# <td rowspan="2">TODO</td> %>
         <td rowspan="2"><%= stock.notes %></td>
-        <%# <td colspan="2" rowspan="2">TODO</td> %>
+        <td colspan="2" rowspan="2">
+          <% if ticker.latest_price < stock.stop_loss %>
+            Below Stop Loss
+          <% elsif ticker.latest_price > stock.target_entry && ticker.latest_price < stock.target_entry_high %>
+            In buy zone
+          <% elsif ticker.latest_price > stock.target_exit_1 && ticker.latest_price < stock.target_exit_2 %>
+            Above first exit target
+          <% elsif ticker.latest_price > stock.target_exit_2 && ticker.latest_price < stock.target_exit_3 %>
+            Above second exit target
+          <% elsif ticker.latest_price > stock.target_exit_3 %>
+            Above third exit target
+          <% else %>
+            Wait
+          <% end %>
+        </td>
       </tr>
       <tr>
         <td><%= number_to_currency(stock.target_entry_high) %></td>

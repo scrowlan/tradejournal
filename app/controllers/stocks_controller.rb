@@ -42,6 +42,17 @@ class StocksController < ApplicationController
     redirect_to stocks_path
   end
 
+  def what_action
+    @ticker = StockQuote::Stock.quote(stock.symbol)
+    @stock = Stock.find(params[:id])
+
+    if ticker.latest_price < stock.stop_loss
+      Below Stop Loss
+    else
+      Buy
+    end
+  end
+
 private
   def stock_params
   	params.require(:stock).permit(:symbol, :target_entry, :target_entry_high, :stop_loss, :target_exit_1, :target_exit_2, :target_exit_3, :date, :timeframe, :source, :risk, :notes, :user_id)
