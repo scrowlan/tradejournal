@@ -1,52 +1,37 @@
 <h1>List of Stocks</h1>
- 
-<table class="table table-bordered table-sm">
-  <tr>
-    <tr>
-      <th scope="col" rowspan="2">Symbol</th>
-      <th scope="col">Low Entry</th>
-      <th scope="col">Stop Loss</th>
-      <th scope="col">Exit 1</th>
-      <th scope="col">Exit 3</th>
-      <th scope="col">Date</th>
-      <th scope="col">Source</th>
-      <%# <th scope="col" rowspan="2">Images</th> %>
-      <th scope="col" rowspan="2">Notes</th>
-      <%# <th scope="col" colspan="2" rowspan="2">Actions</th> %>
-    </tr>
-    <tr>
-      <th scope="col">High Entry</th>
-      <th scope="col">Current</th>
-      <th scope="col">Exit 2</th>
-      <th scope="col">TBD</th>
-      <th scope="col">Timeframe</th>
-      <th scope="col">Risk</th>
-    </tr>
-  </tr>
- 
+
+<div class="card-deck">
   <% @stocks.each do |stock| %>
-    <% ticker = StockQuote::Stock.quote(stock.symbol) %>
-    <tr>
-      <tr>
-        <td rowspan="2"><%= link_to stock.symbol.upcase, stock_path(stock) %></td>
-        <td><%= number_to_currency(stock.target_entry) %></td>
-        <td><%= number_to_currency(stock.stop_loss) %></td>
-        <td><%= number_to_currency(stock.target_exit_1) %></td>
-        <td><%= number_to_currency(stock.target_exit_2) %></td>
-        <td><%= stock.date %></td>
-        <td><%= stock.source %></td>
-        <%# <td rowspan="2">TODO</td> %>
-        <td rowspan="2"><%= stock.notes %></td>
-        <%# <td colspan="2" rowspan="2">TODO</td> %>
-      </tr>
-      <tr>
-        <td><%= number_to_currency(stock.target_entry_high) %></td>
-        <td><%= number_to_currency(ticker.latest_price) %></td>
-        <td><%= number_to_currency(ticker.change) %></td>
-        <td><%= number_to_currency(stock.target_exit_3) %></td>
-        <td><%= stock.timeframe %></td>
-        <td><%= stock.risk %></td>
-      </tr>
-    </tr>
+    <div class="card">
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="targets-tab" data-toggle="tab" href="#targets" role="tab" aria-controls="targets" aria-selected="false">Targets</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-body">
+        <h4 class="card-title"><%= stock.symbol.upcase %></h4>
+        <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(stock.target_exit_3) %></h6>
+        
+        <div class="tab-content mt-3" id="myTabContent">
+          <div class="tab-pane show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+            <p class="card-text">
+                Wait
+            </p>
+          </div>
+          
+          <div class="tab-pane" id="targets" role="tabpanel" aria-labelledby="targets-tab">
+            <%= stock.stop_loss %>
+          </div>
+        </div>
+
+      </div>
+      <footer class="blockquote-footer"><%= stock.source %></footer>
+    </div>
   <% end %>
-</table>
+</div>
