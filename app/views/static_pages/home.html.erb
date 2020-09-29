@@ -13,68 +13,61 @@
 <div>
   <h2>Symbols we're watching:</h2>
  
-<table class="table table-bordered table-sm">
-  <tr>
-    <tr>
-      <th scope="col" rowspan="2">Symbol</th>
-      <th scope="col">Low Entry</th>
-      <th scope="col">Stop Loss</th>
-      <th scope="col">Exit 1</th>
-      <th scope="col">Exit 2</th>
-      <th scope="col">Date</th>
-      <th scope="col">Source</th>
-      <%# <th scope="col" rowspan="2">Images</th> %>
-      <th scope="col" rowspan="2">Notes</th>
-      <th scope="col" colspan="2" rowspan="2">Actions</th>
-    </tr>
-    <tr>
-      <th scope="col">High Entry</th>
-      <th scope="col">Current</th>
-      <th scope="col">Change</th>
-      <th scope="col">Exit 3</th>
-      <th scope="col">Timeframe</th>
-      <th scope="col">Risk</th>
-    </tr>
-  </tr>
- 
-  <% @stocks.each do |stock| %>
+<div class="container row">
+    <% @stocks.each do |stock| %>
     <% ticker = StockQuote::Stock.quote(stock.symbol) %>
-    <tr>
-      <tr>
-        <td rowspan="2"><%= link_to stock.symbol.upcase, stock_path(stock) %></td>
-        <td><%= number_to_currency(stock.target_entry) %></td>
-        <td><%= number_to_currency(stock.stop_loss) %></td>
-        <td><%= number_to_currency(stock.target_exit_1) %></td>
-        <td><%= number_to_currency(stock.target_exit_2) %></td>
-        <td><%= stock.date %></td>
-        <td><%= stock.source %></td>
-        <%# <td rowspan="2">TODO</td> %>
-        <td rowspan="2"><%= stock.notes %></td>
-        <td colspan="2" rowspan="2">
-          <% if ticker.latest_price < stock.stop_loss %>
-            Below Stop Loss
-          <% elsif ticker.latest_price > stock.target_entry && ticker.latest_price < stock.target_entry_high %>
-            In buy zone
-          <% elsif ticker.latest_price > stock.target_exit_1 && ticker.latest_price < stock.target_exit_2 %>
-            Above first exit target
-          <% elsif ticker.latest_price > stock.target_exit_2 && ticker.latest_price < stock.target_exit_3 %>
-            Above second exit target
-          <% elsif ticker.latest_price > stock.target_exit_3 %>
-            Above third exit target
-          <% else %>
-            Wait
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td><%= number_to_currency(stock.target_entry_high) %></td>
-        <td><%= number_to_currency(ticker.latest_price) %></td>
-        <td><%= number_to_currency(ticker.change) %></td>
-        <td><%= number_to_currency(stock.target_exit_3) %></td>
-        <td><%= stock.timeframe %></td>
-        <td><%= stock.risk %></td>
-      </tr>
-    </tr>
-  <% end %>
-</table>
+      <div class="card-deck col-lg-4 col-sm-6">
+        <div class="card mb-3">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview-<%= stock.id %>" role="tab" aria-controls="overview-<%= stock.id %>" aria-selected="true">Overview</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="targets-tab" data-toggle="tab" href="#targets-<%= stock.id %>" role="tab" aria-controls="targets-<%= stock.id %>" aria-selected="false">Targets</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card-body">
+            <h4 class="card-title"><%= link_to stock.symbol.upcase, stock_path(stock) %></h4>
+            <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(ticker.latest_price) %></h6>
+            <% if ticker.change > 0 %>
+              <h6 class="card-subtitle mb-2 text-success"><%= number_to_currency(ticker.change) %></h6>
+            <% elsif ticker.change < 0 %>
+              <h6 class="card-subtitle mb-2 text-danger"><%= number_to_currency(ticker.change) %></h6>
+            <% else %>
+              <h6 class="card-subtitle mb-2"><%= number_to_currency(ticker.change) %></h6>
+            <% end %>
+            <div class="tab-content mt-3" id="myTabContent">
+              <div class="tab-pane show active" id="overview-<%= stock.id %>" role="tabpanel" aria-labelledby="overview-tab">
+                <p class="card-text">
+                  <% if ticker.latest_price < stock.stop_loss %>
+                    Below Stop Loss
+                  <% elsif ticker.latest_price > stock.target_entry && ticker.latest_price < stock.target_entry_high %>
+                    In buy zone (<%= number_to_currency(stock.target_entry) %> - <%= number_to_currency(stock.target_entry_high) %>)
+                  <% elsif ticker.latest_price > stock.target_exit_1 && ticker.latest_price < stock.target_exit_2 %>
+                    Above first exit target
+                  <% elsif ticker.latest_price > stock.target_exit_2 && ticker.latest_price < stock.target_exit_3 %>
+                    Above second exit target
+                  <% elsif ticker.latest_price > stock.target_exit_3 %>
+                    Above third exit target
+                  <% else %>
+                    Wait
+                  <% end %>
+                </p>
+              </div>
+              
+              <div class="tab-pane" id="targets-<%= stock.id %>" role="tabpanel" aria-labelledby="targets-tab">
+                <p>Buy Zone: <%= number_to_currency(stock.target_entry) %> - <%= number_to_currency(stock.target_entry_high) %></p>
+                <p>Stoploss: <%= number_to_currency(stock.stop_loss) %></p>
+                <p>Exit Zone: <%= number_to_currency(stock.target_exit_1) %> - <%= number_to_currency(stock.target_exit_3) %></p>
+              </div>
+            </div>
+          </div>
+          <footer class="blockquote-footer"><%= stock.source %></footer>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
