@@ -18,7 +18,7 @@
           <div class="card-body">
             <h4 class="card-title"><%= link_to stock.symbol.upcase, stock_path(stock) %></h4>
             <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(ticker.latest_price) %></h6>
-              <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(ticker.change) %></h6>
+              <h6 class="card-subtitle mb-2 text-success"><%= number_to_currency(ticker.change) %></h6>
             
             <div class="tab-content mt-3" id="myTabContent">
               <div class="tab-pane show active" id="overview-<%= stock.id %>" role="tabpanel" aria-labelledby="overview-tab">
