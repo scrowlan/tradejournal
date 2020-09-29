@@ -1,6 +1,7 @@
 <h1>List of Stocks</h1>
   <div class="container row">
     <% @stocks.each do |stock| %>
+    <% ticker = StockQuote::Stock.quote(stock.symbol) %>
       <div class="card-deck col-lg-4 col-sm-6">
         <div class="card mb-3">
           <div class="card-header">
@@ -21,12 +22,26 @@
             <div class="tab-content mt-3" id="myTabContent">
               <div class="tab-pane show active" id="overview-<%= stock.id %>" role="tabpanel" aria-labelledby="overview-tab">
                 <p class="card-text">
+                  <% if ticker.latest_price < stock.stop_loss %>
+                    Below Stop Loss
+                  <% elsif ticker.latest_price > stock.target_entry && ticker.latest_price < stock.target_entry_high %>
+                    In buy zone
+                  <% elsif ticker.latest_price > stock.target_exit_1 && ticker.latest_price < stock.target_exit_2 %>
+                    Above first exit target
+                  <% elsif ticker.latest_price > stock.target_exit_2 && ticker.latest_price < stock.target_exit_3 %>
+                    Above second exit target
+                  <% elsif ticker.latest_price > stock.target_exit_3 %>
+                    Above third exit target
+                  <% else %>
                     Wait
+                  <% end %>
                 </p>
               </div>
               
               <div class="tab-pane" id="targets-<%= stock.id %>" role="tabpanel" aria-labelledby="targets-tab">
-                <%= stock.stop_loss %>
+                <p>Buy Zone: <%= number_to_currency(stock.target_entry) %> - <%= number_to_currency(stock.target_entry_high) %></p>
+                <p>Stoploss: <%= number_to_currency(stock.stop_loss) %></p>
+                <p>Exit Zone: <%= number_to_currency(stock.target_exit_1) %> - <%= number_to_currency(stock.target_exit_3) %></p>
               </div>
             </div>
           </div>
