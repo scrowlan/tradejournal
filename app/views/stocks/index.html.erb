@@ -18,8 +18,13 @@
           <div class="card-body">
             <h4 class="card-title"><%= link_to stock.symbol.upcase, stock_path(stock) %></h4>
             <h6 class="card-subtitle mb-2 text-muted"><%= number_to_currency(ticker.latest_price) %></h6>
+            <% if ticker.change > 0 %>
               <h6 class="card-subtitle mb-2 text-success"><%= number_to_currency(ticker.change) %></h6>
-            
+            <% elsif ticker.change < 0 %>
+              <h6 class="card-subtitle mb-2 text-danger"><%= number_to_currency(ticker.change) %></h6>
+            <% else %>
+              <h6 class="card-subtitle mb-2"><%= number_to_currency(ticker.change) %></h6>
+            <% end %>
             <div class="tab-content mt-3" id="myTabContent">
               <div class="tab-pane show active" id="overview-<%= stock.id %>" role="tabpanel" aria-labelledby="overview-tab">
                 <p class="card-text">
